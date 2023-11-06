@@ -9,6 +9,23 @@
   <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.6/dist/umd/popper.min.js"></script>
   <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
   <link rel="stylesheet" type="text/css" href="styles.css">
+  <style>
+
+<style>
+    /* CSS for the image gallery */
+    .image-gallery {
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: space-between;
+    }
+
+    .thumbnail {
+      width: calc(25% - 14px);
+      margin: 5px;
+      cursor: pointer;
+    }
+
+  </style>
   <title>Frontend Mentor | E-commerce product page</title>
 </head>
 <body>
@@ -39,12 +56,12 @@
   <div class="row">
     <!-- Image Gallery -->
     <div class="col-md-6">
-      <img src="images/image-product-1.jpg" alt="Product 1" class="img-fluid">
-      <div class="d-flex justify-content-between mt-2">
-        <img src="images/image-product-1-thumbnail.jpg" alt="Product 1 Thumbnail" class="thumbnail img-thumbnail">
-        <img src="images/image-product-2-thumbnail.jpg" alt="Product 2 Thumbnail" class="thumbnail img-thumbnail">
-        <img src="images/image-product-3-thumbnail.jpg" alt="Product 3 Thumbnail" class="thumbnail img-thumbnail">
-        <img src="images/image-product-4-thumbnail.jpg" alt="Product 4 Thumbnail" class="thumbnail img-thumbnail">
+      <img src="images/image-product-1.jpg" alt="Product 1" class="img-fluid" id="mainImage">
+      <div class="image-gallery">
+        <img src="images/image-product-1-thumbnail.jpg" alt="Product 1 Thumbnail" class="thumbnail img-thumbnail" onclick="changeImage('images/image-product-1.jpg')">
+        <img src="images/image-product-2-thumbnail.jpg" alt="Product 2 Thumbnail" class="thumbnail img-thumbnail" onclick="changeImage('images/image-product-2.jpg')">
+        <img src="images/image-product-3-thumbnail.jpg" alt="Product 3 Thumbnail" class="thumbnail img-thumbnail" onclick="changeImage('images/image-product-3.jpg')">
+        <img src="images/image-product-4-thumbnail.jpg" alt="Product 4 Thumbnail" class="thumbnail img-thumbnail" onclick="changeImage('images/image-product-4.jpg')">
       </div>
     </div>
 
@@ -95,15 +112,13 @@
   $(document).ready(function() {
     // Add an item to the shopping cart
     $('.add-to-cart').click(function() {
-      // Add your logic to add the selected item to the shopping cart
-      // You can append items to the #cartItems list in the shopping cart modal
       var itemName = 'Product Name'; // Replace with actual product name
       var itemPrice = '$50.00'; // Replace with actual product price
       var itemQuantity = 2; // Replace with actual quantity
       $('#cartItems').append(
         '<li>' +
           '<div class="cart-item">' +
-            '<img src="images/product-image.jpg" alt="Product Image">' +
+            '<img src="images/image-product-1-thumbnail.jpg" alt="Product Image">' +
             '<div class="item-details">' +
               '<h4>' + itemName + '</h4>' +
               '<p>Price: ' + itemPrice + '</p>' +
@@ -117,18 +132,21 @@
 
     // Remove an item from the shopping cart
     $(document).on('click', '.remove-item', function() {
-      // Add your logic to remove the clicked item from the shopping cart
       // Remove the item's <li> element from the #cartItems list
       $(this).closest('li').remove();
     });
 
-    // Checkout button (you can add your own logic here)
+    // Checkout button
     $(document).on('click', '.checkout', function() {
-      // Add your logic to process the checkout
       // Redirect to the checkout page or perform other actions
       alert('Checkout functionality goes here.'); // Placeholder
     });
   });
+
+  // Function to change the main image when a thumbnail is clicked
+  function changeImage(newImageSrc) {
+    $('#mainImage').attr('src', newImageSrc);
+  }
 </script>
 
 </body>
