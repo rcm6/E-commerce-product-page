@@ -2,43 +2,134 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0"> <!-- displays site properly based on user's device -->
-
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <link rel="icon" type="image/png" sizes="32x32" href="./images/favicon-32x32.png">
-  
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+  <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.6/dist/umd/popper.min.js"></script>
+  <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+  <link rel="stylesheet" type="text/css" href="styles.css">
   <title>Frontend Mentor | E-commerce product page</title>
-
-  <!-- Feel free to remove these styles or customise in your own stylesheet 👍 -->
-  <style>
-    .attribution { font-size: 11px; text-align: center; }
-    .attribution a { color: hsl(228, 45%, 44%); }
-  </style>
 </head>
 <body>
 
-  Collections
-  Men
-  Women
-  About
-  Contact
+<!-- Navigation -->
+<nav class="navbar navbar-expand-lg navbar-light bg-light">
+  <a class="navbar-brand" href="#"><img src="images/logo.svg" alt="Logo"></a>
+  <ul class="navbar-nav ml-auto">
+    <li class="nav-item"><a class="nav-link" href="#">Collections</a></li>
+    <li class="nav-item"><a class="nav-link" href="#">Men</a></li>
+    <li class="nav-item"><a class="nav-link" href="#">Women</a></li>
+    <li class="nav-item"><a class="nav-link" href="#">About</a></li>
+    <li class="nav-item">
+      <a class="nav-link shopping-cart" href="#" data-toggle="modal" data-target="#cartModal">
+        <i class="fa fa-shopping-cart">cart</i>
+      </a>
+    </li>
+    <li class="nav-item">
+      <a class="nav-link" href="#">
+        <img src="images/profile-image.jpg" alt="Profile Image">
+      </a>
+    </li>
+  </ul>
+</nav>
 
-  Sneaker Company
+<!-- Product Section -->
+<div class="container mt-4">
+  <div class="row">
+    <!-- Image Gallery -->
+    <div class="col-md-6">
+      <img src="images/image-product-1.jpg" alt="Product 1" class="img-fluid">
+      <div class="d-flex justify-content-between mt-2">
+        <img src="images/image-product-1-thumbnail.jpg" alt="Product 1 Thumbnail" class="thumbnail img-thumbnail">
+        <img src="images/image-product-2-thumbnail.jpg" alt="Product 2 Thumbnail" class="thumbnail img-thumbnail">
+        <img src="images/image-product-3-thumbnail.jpg" alt="Product 3 Thumbnail" class="thumbnail img-thumbnail">
+        <img src="images/image-product-4-thumbnail.jpg" alt="Product 4 Thumbnail" class="thumbnail img-thumbnail">
+      </div>
+    </div>
 
-  Fall Limited Edition Sneakers
-
-  These low-profile sneakers are your perfect casual wear companion. Featuring a 
-  durable rubber outer sole, they’ll withstand everything the weather can offer.
-
-  $125.00
-  50%
-  $250.00
-
-  0
-  Add to cart
-  
-  <div class="attribution">
-    Challenge by <a href="https://www.frontendmentor.io?ref=challenge" target="_blank">Frontend Mentor</a>. 
-    Coded by <a href="#">Your Name Here</a>.
+    <!-- Product Details -->
+    <div class="col-md-6">
+      <p class="manufacturer">Sneaker Company</p>
+      <h1 class="product-title">Fall Limited Edition Sneakers</h1>
+      <p class="product-description">These low-profile sneakers are your perfect casual wear companion. Featuring a durable rubber outer sole, they’ll withstand everything the weather can offer.</p>
+      <div class="product-price">
+        <p class="discounted-price">$125.00</p>
+        <p class="original-price">$250.00</p>
+      </div>
+      <div class="quantity-selector">
+        <button class="btn btn-secondary decrease-quantity">-</button>
+        <input type="number" min="0" value="1" class="form-control">
+        <button class="btn btn-secondary increase-quantity">+</button>
+      </div>
+      <button class="btn btn-primary add-to-cart">Add to Cart</button>
+    </div>
   </div>
+</div>
+
+<!-- Shopping Cart Modal -->
+<div class="modal fade" id="cartModal" tabindex="-1" role="dialog" aria-labelledby="cartModalLabel" aria-hidden="true">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="cartModalLabel">Shopping Cart</h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+        <ul id="cartItems">
+          <!-- Add items dynamically here -->
+        </ul>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+        <button class="btn btn-primary checkout">Checkout</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+<script>
+  // JavaScript code to handle shopping cart interactions
+  $(document).ready(function() {
+    // Add an item to the shopping cart
+    $('.add-to-cart').click(function() {
+      // Add your logic to add the selected item to the shopping cart
+      // You can append items to the #cartItems list in the shopping cart modal
+      var itemName = 'Product Name'; // Replace with actual product name
+      var itemPrice = '$50.00'; // Replace with actual product price
+      var itemQuantity = 2; // Replace with actual quantity
+      $('#cartItems').append(
+        '<li>' +
+          '<div class="cart-item">' +
+            '<img src="images/product-image.jpg" alt="Product Image">' +
+            '<div class="item-details">' +
+              '<h4>' + itemName + '</h4>' +
+              '<p>Price: ' + itemPrice + '</p>' +
+              '<p>Quantity: ' + itemQuantity + '</p>' +
+            '</div>' +
+            '<button class="btn btn-danger remove-item">Remove</button>' +
+          '</div>' +
+        '</li>'
+      );
+    });
+
+    // Remove an item from the shopping cart
+    $(document).on('click', '.remove-item', function() {
+      // Add your logic to remove the clicked item from the shopping cart
+      // Remove the item's <li> element from the #cartItems list
+      $(this).closest('li').remove();
+    });
+
+    // Checkout button (you can add your own logic here)
+    $(document).on('click', '.checkout', function() {
+      // Add your logic to process the checkout
+      // Redirect to the checkout page or perform other actions
+      alert('Checkout functionality goes here.'); // Placeholder
+    });
+  });
+</script>
+
 </body>
 </html>
